@@ -10,6 +10,69 @@ import csv
 import random
 
 
+# data creation - TOY EXAMPLES - useful for testing
+# code for blobs and two_moons come from the class of Graphs in Machine Learning
+def blobs(num_samples, n_blobs=2, blob_var=0.15, surplus=0):
+    """
+    Creates N gaussian blobs evenly spaced across a circle.
+
+    :param num_samples: number of samples to create in the dataset
+    :param n_blobs:      how many separate blobs to create
+    :param blob_var:    gaussian variance of each blob
+    :param surplus:     number of extra samples added to first blob to create unbalanced classes
+    :return: X,  (num_samples, 2) matrix of 2-dimensional samples
+             Y,  (num_samples, ) vector of "true" cluster assignment
+    """
+    # data array
+    X = np.zeros((num_samples, 2))
+    # array containing the indices of the true clusters
+    Y = np.zeros(num_samples, dtype=np.int32)
+
+    # generate data
+    block_size = (num_samples - surplus) // n_blobs
+
+    # blob centers
+    blob_centers = np.array([[1.2, 0], [0.5, 0.5]])
+
+    for ii in range(1, n_blobs + 1):
+        start_index = (ii - 1) * block_size
+        end_index = ii * block_size
+        if ii == n_blobs:
+            end_index = num_samples
+        Y[start_index:end_index] = ii - 1
+        nn = end_index - start_index
+
+        X[start_index:end_index, 0] = np.cos(2 * np.pi * ii / n_blobs) + blob_var * np.random.randn(nn) + blob_centers[ii-1][0]
+        X[start_index:end_index, 1] = np.sin(2 * np.pi * ii / n_blobs) + blob_var * np.random.randn(nn) + blob_centers[ii-1][1]
+    return X, Y
+
+
+def two_moons(num_samples, moon_radius=2.0, moon_var=0.02):
+    """
+    Creates two intertwined moons
+
+    :param num_samples: number of samples to create in the dataset
+    :param moon_radius: radius of the moons
+    :param moon_var:    variance of the moons
+    :return: X,  (num_samples, 2) matrix of 2-dimensional samples
+             Y,  (num_samples, ) vector of "true" cluster assignment
+    """
+    X = np.zeros((num_samples, 2))
+
+    for i in range(int(num_samples / 2)):
+        r = moon_radius + 4 * i / num_samples
+        t = i * 3 / num_samples * np.pi
+        X[i, 0] = r * np.cos(t)
+        X[i, 1] = r * np.sin(t)
+        X[i + int(num_samples / 2), 0] = r * np.cos(t + np.pi)
+        X[i + int(num_samples / 2), 1] = r * np.sin(t + np.pi)
+
+    X = X + np.sqrt(moon_var) * np.random.normal(size=(num_samples, 2))
+    Y = np.ones(num_samples)
+    Y[:int(num_samples / 2) + 1] = 0
+    return [X, Y.astype(int)]
+
+
 class DataLoader:
     def __init__(self, path='data'):
         """
@@ -84,69 +147,6 @@ class DataLoader:
             'X': X[indexes[split_index:]],
             'y': Y[indexes[split_index:]]
         }
-
-
-# data creation
-# code for blobs and two_moons come from the class of Graphs in Machine Learning
-def blobs(num_samples, n_blobs=2, blob_var=0.15, surplus=0):
-    """
-    Creates N gaussian blobs evenly spaced across a circle.
-
-    :param num_samples: number of samples to create in the dataset
-    :param n_blobs:      how many separate blobs to create
-    :param blob_var:    gaussian variance of each blob
-    :param surplus:     number of extra samples added to first blob to create unbalanced classes
-    :return: X,  (num_samples, 2) matrix of 2-dimensional samples
-             Y,  (num_samples, ) vector of "true" cluster assignment
-    """
-    # data array
-    X = np.zeros((num_samples, 2))
-    # array containing the indices of the true clusters
-    Y = np.zeros(num_samples, dtype=np.int32)
-
-    # generate data
-    block_size = (num_samples - surplus) // n_blobs
-
-    # blob centers
-    blob_centers = np.array([[1.2, 0], [0.5, 0.5]])
-
-    for ii in range(1, n_blobs + 1):
-        start_index = (ii - 1) * block_size
-        end_index = ii * block_size
-        if ii == n_blobs:
-            end_index = num_samples
-        Y[start_index:end_index] = ii - 1
-        nn = end_index - start_index
-
-        X[start_index:end_index, 0] = np.cos(2 * np.pi * ii / n_blobs) + blob_var * np.random.randn(nn) + blob_centers[ii-1][0]
-        X[start_index:end_index, 1] = np.sin(2 * np.pi * ii / n_blobs) + blob_var * np.random.randn(nn) + blob_centers[ii-1][1]
-    return X, Y
-
-
-def two_moons(num_samples, moon_radius=2.0, moon_var=0.02):
-    """
-    Creates two intertwined moons
-
-    :param num_samples: number of samples to create in the dataset
-    :param moon_radius: radius of the moons
-    :param moon_var:    variance of the moons
-    :return: X,  (num_samples, 2) matrix of 2-dimensional samples
-             Y,  (num_samples, ) vector of "true" cluster assignment
-    """
-    X = np.zeros((num_samples, 2))
-
-    for i in range(int(num_samples / 2)):
-        r = moon_radius + 4 * i / num_samples
-        t = i * 3 / num_samples * np.pi
-        X[i, 0] = r * np.cos(t)
-        X[i, 1] = r * np.sin(t)
-        X[i + int(num_samples / 2), 0] = r * np.cos(t + np.pi)
-        X[i + int(num_samples / 2), 1] = r * np.sin(t + np.pi)
-
-    X = X + np.sqrt(moon_var) * np.random.normal(size=(num_samples, 2))
-    Y = np.ones(num_samples)
-    Y[:int(num_samples / 2) + 1] = 0
-    return [X, Y.astype(int)]
 
 
 class GridSearch:
