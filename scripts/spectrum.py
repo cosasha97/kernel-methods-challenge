@@ -1,6 +1,7 @@
 import numpy as np
 from collections import Counter
 
+
 class SpectrumKernel:
     def __init__(self, seq_length, normalization=True):
         """
