@@ -90,5 +90,5 @@ if __name__ == "__main__":
     GS.return_results()
     # save performances
     GS.save_performances()
-    # write predictions
+    # write predictions in the file: results/Yte.csv
     GS.write_csv()
