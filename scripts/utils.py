@@ -209,7 +209,8 @@ class GridSearch:
         print('Results set 1 = {}, set 2 = {}, set 3 = {}, avg = {}'.format(br0, br1, br2, (br0 + br1 + br2) / 3))
 
     def write_csv(self):
-        filename = 'results/results_' + self.model_name + '.csv'
+        #filename = 'results/results_' + self.model_name + '.csv'
+        filename = 'results/Yte.csv'
 
         with open(filename, 'w', newline='') as csvfile:
             fieldnames = ['Id', 'Bound']
