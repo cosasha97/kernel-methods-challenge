@@ -23,4 +23,7 @@ python start.py
     * a class 'KernelMethod' (parent class any each kernel method)
     * Kernel Ridge Regression
     * Kernel SVM (version with and without bias)
-    
+  *  "utils.py":
+    * DataLoader: class load the data 
+    * GridSearch: class to perform the grid search
+    * other functions to generate toy data to test algorithms
