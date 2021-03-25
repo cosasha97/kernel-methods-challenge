@@ -8,7 +8,6 @@ extensions = [
 ]
 
 setup(
-    # ext_modules=cythonize("ssk_kernel_c.pyx"),
     ext_modules=cythonize(extensions),
     include_dirs=[numpy.get_include()]
 )
