@@ -10,4 +10,17 @@ To generate our results, you only need to run the following command:
 ```
 python start.py
 ```
-However, the computation of the different kernels will take a very long time.
+**Warning:** the computation of the different kernels will take a very long time.
+
+## Content
+* "data/": contains the embedded data and the raw strings
+* "results/": contains csv files recording the results of our different trainings
+* "scripts/": contains the scripts of the different methods and kernels
+  *  "spectrum.py": spectrum kernel
+  *  "mismatch.py": mismatch kernel
+  *  "substring.py": substring kernel
+  *  "models.py": script containing the code for:
+    * a class 'KernelMethod' (parent class any each kernel method)
+    * Kernel Ridge Regression
+    * Kernel SVM (version with and without bias)
+    
