@@ -10,7 +10,7 @@ To generate our results, you only need to run the following command:
 ```
 python start.py
 ```
-**Warning:** the computation of the different kernels will take a very long time.
+**Warning:** the computation of the different kernels will take a significant time.
 
 ## Content
 * "data/": contains the embedded data and the raw strings
