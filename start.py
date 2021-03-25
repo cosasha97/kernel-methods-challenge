@@ -5,7 +5,7 @@ from scripts.utils import *
 from scripts.models import *
 from scripts.mismatch import *
 from scripts.spectrum import *
-from scripts.Substring import *
+from scripts.substring import *
 if __name__ == "__main__":
     """
     Load Data, compute kernels, and then generate the predictions.
