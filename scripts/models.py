@@ -318,6 +318,8 @@ class SupportVectorMachine2(KernelMethod):
     def __init__(self, C=5., **params):
         """
         :param C: float, regularization constant
+        
+        Second formulation of SVM (C-SVM) with computation of the bias
         """
         super().__init__(**params)
         self.model_name = 'svm'
