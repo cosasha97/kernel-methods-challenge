@@ -4,7 +4,7 @@ from distutils.extension import Extension
 import numpy
 
 extensions = [
-    Extension("ssk", ["ssk_kernel_c.pyx"])
+    Extension("ssk", ["substring_cython.pyx"])
 ]
 
 setup(
