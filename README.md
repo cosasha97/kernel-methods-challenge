@@ -19,11 +19,11 @@ python start.py
   *  "spectrum.py": spectrum kernel
   *  "mismatch.py": mismatch kernel
   *  "substring.py": substring kernel
-  *  "models.py": script containing the code for:
-      * a class 'KernelMethod' (parent class of any each kernel method)
+  *  "models.py": script containing the following classes:
+      * KernelMethod: parent class of any each kernel method
       * KernelRidgeRegression: class for Kernel Ridge Regression
       * SupportVectorMachine and SupportVectorMachine2: classes for Kernel SVM (version with and without bias)
   *  "utils.py":
-      * DataLoader: class load the data 
+      * DataLoader: class to load the data 
       * GridSearch: class to perform the grid search
       * other functions to generate toy data to test algorithms
