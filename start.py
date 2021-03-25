@@ -5,7 +5,7 @@ from scripts.utils import *
 from scripts.models import *
 from scripts.mismatch import *
 from scripts.spectrum import *
-
+from scripts.Substring import *
 if __name__ == "__main__":
     """
     Load Data, compute kernels, and then generate the predictions.
@@ -24,6 +24,7 @@ if __name__ == "__main__":
         else:
             print("Successfully created the directory %s " % path)
 
+            
     # spectrum Kernel
     K_list = [3, 4, 5, 6]
 
@@ -60,6 +61,22 @@ if __name__ == "__main__":
                 np.save('./Kernel/' + name_train, K_train)
                 np.save('./Kernel/' + name_test, K_test)
 
+    # Substring Kernel
+    k = 11
+    l_list = [0.5, 0.75]
+    for l in l_list:
+        for i in range(3):
+            t1 = time.time()
+            X_train = data.raw_data['train'][i][:10]
+            X_test = data.raw_data['test'][i][:10]
+            K_train = compute_kernel(X_train, X_train, k, l)
+            K_test = compute_kernel(X_train, X_test, k, l)
+            for k in range(K_train.shape[-1]):
+                name_train = '{}_substring_N_train_{}_{}'.format(i, k, l)
+                name_test = '{}_substring_N_test_{}_{}'.format(i, k, l)
+                print('{}_{} tps = {}'.format(l, i, time.time() - t1), flush=True)
+                np.save('./Kernel/'+name_train, K_train[:, :, k])
+                np.save('./Kernel/'+name_test, K_test[:, :, k])                
     # ==== GENERATE RESULTS ====
 
     # best parameters
